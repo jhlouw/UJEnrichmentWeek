@@ -537,80 +537,89 @@ When the app was provisioned, an in-app SQL database was provisioned for it, too
 <a name="Exercise3"></a>
 ## Exercise 3: Deploy the Web site
 
-Now it is time to copy the files that comprise your Web site to the Azure Web App. In this exercise, you will publish your Web site using FTP.
+<a name="Exercise3"></a>
+## Exercise 3: Deploy the Web site
 
-1. Click **Deployment credentials** in the blade for the Web App.
- 
-    ![Viewing deployment credentials](Images/deploy-deploymentcredentials.png)
+First we need to configure the app to accept deployments from git.
+1. Click **Deployment options** to configure the deployment source.
 
-    _Viewing deployment credentials_
+    ![Selecting the deployment source](Images/node-deployment-options.png)
 
-1. Enter a user name and password for connecting to your site via FTP. **Be sure to remember the password**. Click the **Save** button at the top of the blade to save these credentials.
+    _Selecting the deployment source_
 
-    ![Specifying FTP credentials](Images/deploy-enter-credentials.png)
+1. In the "Deployment option" blade, click **Choose Source**.
 
-    _Specifying FTP credentials_
+    ![Choosing the deployment source](Images/node-choose-source.png)
 
-1. Click **Overview** in the blade for the Web app.
+    _Choosing the deployment source_
 
-    ![Specifying FTP credentials](Images/open-overview.png)
+1. In the "Choose source" blade, click **Local Git Repository**. Then click **OK** at the bottom of the "Deployment option" blade.
 
-    _Specifying FTP credentials_
+    ![Choosing a deployment source](Images/node-select-local-git-repository.png)
 
-1. Locate the **FTP/deployment username** and **FTP hostname** values. Hover the mouse cursor over the FTP hostname and click the **Copy** button that appears on the right to copy the hostname to the clipboard.
-  
-    ![The FTP username and hostname](Images/deploy-getftpstrings.png)
+    _Choosing a deployment source_
 
-    _The FTP username and hostname_
+1. Click **Deployment credentials**.
 
-1. Open a File Explorer window and paste the FTP hostname value into the address box at the top of the window. Then press **Enter**.
-     
-    ![Entering the FTP hostname in File Explorer](Images/deploy-windowsenterftphostname.png)
+    ![Selecting the deployment credentials](Images/node-select-deployment-credentials.png)
 
-    _Entering the FTP hostname in File Explorer_
-     
-1. When prompted to enter FTP credentials, enter the FTP username (the **FTP/deployment username** in Step 4) and the password you specified in Step 2. Then click **Log On**.
+    _Selecting the deployment credentials_
 
-    ![Entering your FTP credentials](Images/deploy-windowscredentials.png)
-    
-    _Entering your FTP credentials_
+1. Enter a user name and password for deploying to Azure. User names may contain letters, numbers, hyphens, and underscores and must start with a letter. Make your password at least 8 characters in length and include a mix of uppercase letters, lowercase letters, and numbers. **Remember the user name and password you entered because you will need them when you deploy the app**. When you're done, click **Save** at the top of the blade.
 
-1. Double-click the **site** folder in the File Explorer window.
+    ![Setting the deployment credentials](Images/node-set-deployment-credentials.png)
 
-    ![Opening the site folder](Images/deploy-open-site-folder.png)
-    
-    _Opening the site folder_
+    _Setting the deployment credentials_
 
-1. Double-click the **wwwroot** folder in the File Explorer window. This is the root folder for your Web site.
+1. Click **Properties**.
 
-    ![Opening the wwwroot folder](Images/deploy-open-wwwroot-folder.png)
-    
-    _Opening the wwwroot folder_
+    ![Selecting properties](Images/node-select-properties.png)
 
-1. Delete the **hostingstart.html** file. This is the placeholder page you saw earlier when you connected to the site in your browser. When prompted to confirm the deletion, select **Yes**.
-    
-1. Open another File Explorer window and navigate to the folder containing the Web site files you created in [Exercise 1](#Exercise1).
-    
-1. Copy all of the files and folders that comprise the Web site to your site's **wwwroot** folder.  
-       
-    ![Copying the Web site files](Images/deploy-windowsftpcopy.png)
+    _Selecting properties_
 
-    _Copying the Web site files_
+1. Scroll down until you find "GIT URL." Then click the **Copy** button to copy the URL to the clipboard.
 
-1. Congratulations! You now have a working Web site. Click the site URL in the Azure Portal to open the site in your browser.
+    ![Copying the Git URL](Images/node-copy-git-url.png)
 
-    ![Navigating to the finished Web site](Images/deploy-go-to-web-site.png)
+    _Copying the Git URL_
 
-    _Navigating to the finished Web site_
+1. Return to the Command Prompt or Terminal window (or open a new one if you closed the last one) and execute the following command to initialize a git repository:
 
-1. Upload a few images to the Web site. Click any of the image thumbnails to see an enlarged view.
+    <pre>
+    git init</pre>
 
-	> The code that uploads the images limits file uploads to 4 MB to stay under PHP's default upload-size limit and to improve performance, so be sure to select images that are 4 MB or smaller in size.
+1. Next enter the following to add "azure" as a remote name. Substitute the Git URL on the clipboard for *git_url*.
+    <pre>
+	git remote add azure <i>git_url</i></pre>
 
-    ![The working Web site](Images/final-workingwebsite.png)
+1. You may need to configure git to workaround the UJ proxy for the commands to work. If this is the case run the following command:
 
-    _The working Web site_
+    <pre>
+    git config http.proxy http://username:password@152.106.240.140:3128</pre>
 
+1. Add all your files with **git add -A** or **git add .** and commit your changes
+    <pre>
+    git add -A
+    git commit -m "Initial commit"</pre>
+
+1. Now use the following command to deploy your web app from your local Git repository to Azure. When prompted to enter Git credentials, type the user name and password you specified in Step 5 of this exercise.
+
+	<pre>
+	git push azure master</pre>
+
+1. After a few moments, you should be greeted with a successful deployment.
+
+    ![Success!](Images/node-successful-deployment.png)
+
+    _Success!_
+
+1. Open your browser and navigate to *appname*.azurewebsites.net, substituting the name of your Azure Web App for *appname* (the name you entered in Step 4 of this exercise). Confirm that Intellipix appears in your browser, and that it shows the images you uploaded to it while testing locally. The app is no longer running locally; it's on the Web, where it's reachable by everyone. Congratulations on a successful deployment!
+
+    ![The finished product!](Images/final-workingwebsite.png)
+
+    _The finished product!_
+
+If you make changes to the app and want to push the changes out to the Web, simply commit the changes in Visual Studio Code and execute a **git push azure master** command again. Of course, you can still test your changes locally before publishing to the Web.
 ## Summary
 
 In this hands-on lab, you learned how to:
