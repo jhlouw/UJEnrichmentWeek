@@ -14,7 +14,7 @@ In this hands-on lab, you will learn how to:
 
 - Use Visual Studio Code to build a PHP and MySQL Web site
 - Provision an Azure Web App to host the Web site
-- Deploy the Web site using FTP
+- Deploy the Web site using git
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -537,9 +537,6 @@ When the app was provisioned, an in-app SQL database was provisioned for it, too
 <a name="Exercise3"></a>
 ## Exercise 3: Deploy the Web site
 
-<a name="Exercise3"></a>
-## Exercise 3: Deploy the Web site
-
 First we need to configure the app to accept deployments from git.
 1. Click **Deployment options** to configure the deployment source.
 
@@ -547,48 +544,48 @@ First we need to configure the app to accept deployments from git.
 
     _Selecting the deployment source_
 
-1. In the "Deployment option" blade, click **Choose Source**.
+2. In the "Deployment option" blade, click **Choose Source**.
 
     ![Choosing the deployment source](Images/node-choose-source.png)
 
     _Choosing the deployment source_
 
-1. In the "Choose source" blade, click **Local Git Repository**. Then click **OK** at the bottom of the "Deployment option" blade.
+3. In the "Choose source" blade, click **Local Git Repository**. Then click **OK** at the bottom of the "Deployment option" blade.
 
     ![Choosing a deployment source](Images/node-select-local-git-repository.png)
 
     _Choosing a deployment source_
 
-1. Click **Deployment credentials**.
+4. Click **Deployment credentials**.
 
     ![Selecting the deployment credentials](Images/node-select-deployment-credentials.png)
 
     _Selecting the deployment credentials_
 
-1. Enter a user name and password for deploying to Azure. User names may contain letters, numbers, hyphens, and underscores and must start with a letter. Make your password at least 8 characters in length and include a mix of uppercase letters, lowercase letters, and numbers. **Remember the user name and password you entered because you will need them when you deploy the app**. When you're done, click **Save** at the top of the blade.
+5. Enter a user name and password for deploying to Azure. User names may contain letters, numbers, hyphens, and underscores and must start with a letter. Make your password at least 8 characters in length and include a mix of uppercase letters, lowercase letters, and numbers. **Remember the user name and password you entered because you will need them when you deploy the app**. When you're done, click **Save** at the top of the blade.
 
     ![Setting the deployment credentials](Images/node-set-deployment-credentials.png)
 
     _Setting the deployment credentials_
 
-1. Click **Properties**.
+6. Click **Properties**.
 
     ![Selecting properties](Images/node-select-properties.png)
 
     _Selecting properties_
 
-1. Scroll down until you find "GIT URL." Then click the **Copy** button to copy the URL to the clipboard.
+7. Scroll down until you find "GIT URL." Then click the **Copy** button to copy the URL to the clipboard.
 
     ![Copying the Git URL](Images/node-copy-git-url.png)
 
     _Copying the Git URL_
 
-1. Return to the Command Prompt or Terminal window (or open a new one if you closed the last one) and execute the following command to initialize a git repository:
+8. Return to the Command Prompt or Terminal window (or open a new one if you closed the last one) and execute the following command to initialize a git repository:
 
     <pre>
     git init</pre>
 
-1. Next enter the following to add "azure" as a remote name. Substitute the Git URL on the clipboard for *git_url*.
+9. Next enter the following to add "azure" as a remote name. Substitute the Git URL on the clipboard for *git_url*.
     <pre>
 	git remote add azure <i>git_url</i></pre>
 
